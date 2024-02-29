@@ -1,0 +1,31 @@
+---
+
+if (Astro.request.method === "POST") {
+   const data = await Astro.request.formData();
+   const image = data.get("imagen") as File;
+   console.log(image);
+   console.log(data);
+  //  const url = URL.createObjectURL(image)
+  //  console.log(url)
+   
+   const resImgDarks = await fetch('http://192.168.8.171:8000/prueba/',{
+     method:"POST",
+     body: data
+   });
+   const { docs: resultados } = await resImgDarks.json();
+   console.log(resultados);
+ }
+
+---
+
+
+<form action="#" method="POST" enctype="multipart/form-data">
+    <input type="file" name="imagen" id="imagen" accept="image/*" required>
+    <br>
+    <button type="submit">Subir</button>
+</form>
+
+
+
+
+

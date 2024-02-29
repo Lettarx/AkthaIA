@@ -1,0 +1,34 @@
+---
+import {type EvaWall }from '../../types/api_Walls'
+
+const resImgWall = await fetch('http://192.168.8.171:8000/ParedesEsquinas/',{
+    method:"POST",
+    headers: {
+        "Content-Type":"application/json",
+    },
+    body: JSON.stringify({
+        "url":"https://th.bing.com/th/id/OIP.k4uGYhZPu6Q5EVRb0cFtJgHaFj?rs=1&pid=ImgDetMain"
+    })
+});
+const{ docs: resultados } = await resImgWall.json() as EvaWall
+---
+
+<!-- <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {resultados.map((resultado => <p>{resultado.label}  :  {resultado.confidence}</p>))}
+</div> -->
+
+<table>
+    <tr>
+        <th>Imagenes Pared o esquina</th>
+    </tr>
+    <tr>
+        <td>label</td>
+        <td>confidence</td>
+    </tr>
+    {resultados.map((resultado => 
+    <tr> 
+        <td>{resultado.label}</td>
+        <td>{resultado.confidence}</td>
+    </tr>
+    ))}
+</table>
