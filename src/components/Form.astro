@@ -1,26 +1,39 @@
 ---
-
-if (Astro.request.method === "POST") {
-   const data = await Astro.request.formData();
-   const image = data.get("imagen") as File;
-   console.log(image);
-   console.log(data);
-  //  const url = URL.createObjectURL(image)
-  //  console.log(url)
+const llamadaApi = async (formdata) =>{
+   const data = new FormData()
    
-   const resImgDarks = await fetch('http://192.168.8.171:8000/prueba/',{
-     method:"POST",
-     body: data
-   });
-   const { docs: resultados } = await resImgDarks.json();
-   console.log(resultados);
+  
+   const image = formdata.get("file") as File;
+   data.append('file',image);
+   //console.log("image",image);
+   //console.log("data",data);
+ 
+   try {
+    const resImgDarks = await fetch('http://localhost:8000/prueba/', {
+        method: "POST",
+        body: data
+    });
+    
+    if (!resImgDarks.ok) {
+        throw new Error('La solicitud no fue exitosa');
+    }
+    
+    const { docs: resultados } = await resImgDarks.json();
+    console.log("resultado",resultados);
+} catch (error) {
+    console.error('Ocurrió un error durante la solicitud:', error);
+}
  }
-
+ if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData()
+  Astro
+  llamadaApi(form)
+ }
 ---
 
 
-<form action="#" method="POST" enctype="multipart/form-data">
-    <input type="file" name="imagen" id="imagen" accept="image/*" required>
+<form action="#" method="POST" enctype="multipart/form-data" >
+    <input type="file" name="file" id="file" accept="image/*" required>
     <br>
     <button type="submit">Subir</button>
 </form>
