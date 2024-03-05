@@ -19,3 +19,9 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+#Torch + carpetas para que funcionen los modelos
+utils
+models
+cfg
+
