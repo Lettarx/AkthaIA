@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 
+//Para APP1
 export const APP_STATUS={
     INIT:0,
     LOADING:1,
@@ -26,6 +27,7 @@ export const setAppStatusError = () => {
     appStatus.set(APP_STATUS.ERROR)
 }
 
+//Para APP2
 export const APP_STATUS2={
     INIT:0,
     LOADING:1,
@@ -37,19 +39,19 @@ export const APP_STATUS2={
 export const appStatus2 = writable(APP_STATUS.INIT)
 
 export const setAppStatus2Loading = () => {
-    appStatus.set(APP_STATUS2.LOADING)
+    appStatus2.set(APP_STATUS2.LOADING)
 }
 export const setAppStatus2Init = () => {
-    appStatus.set(APP_STATUS2.INIT)
+    appStatus2.set(APP_STATUS2.INIT)
 }
 export const setAppStatus2Accepted = () => {
-    appStatus.set(APP_STATUS2.ACCEPTED)
+    appStatus2.set(APP_STATUS2.ACCEPTED)
 }
 export const setAppStatus2Refused = () => {
-    appStatus.set(APP_STATUS2.REFUSED)
+    appStatus2.set(APP_STATUS2.REFUSED)
 }
 export const setAppStatus2Error = () => {
-    appStatus.set(APP_STATUS2.ERROR)
+    appStatus2.set(APP_STATUS2.ERROR)
 }
 
 
