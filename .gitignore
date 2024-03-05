@@ -25,3 +25,4 @@ utils
 models
 cfg
 __pycache__
+*.pt
