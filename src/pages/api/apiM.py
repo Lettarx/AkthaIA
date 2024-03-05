@@ -1,19 +1,12 @@
 import cv2
 import numpy as np
-import requests
 import io
 import base64
 from PIL import Image as PILImage
-from torchvision.transforms.functional import to_tensor
-import torch
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
-from typing import List
-from procesar import procesarImg
+from src.functions.procesar import procesarImg, evaluarSimilitud
 from fastapi.middleware.cors import CORSMiddleware
-import uuid
-
-IMAGEDIR = "images/"
 
 app = FastAPI()
 
@@ -86,16 +79,8 @@ async def evaluar_imagen(file: UploadFile = File(...)):
     
     image_np = np.array(image)
     original = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
-    return procesarImg(original,'best640.pt')
+    return procesarImg(original,'src/modelos/best640.pt')
 
-# Leemos el modelo
-def evaluarDefectos(img, modelo):
-    model = torch.hub.load('./', 'custom', modelo, source='local', force_reload=True)
-    print("paso model")
-    results = model(img)
-    print("pasoeva")
-    data = results.pandas().xyxy[0]
-    return data
 
 class Image(BaseModel):
     url: str
@@ -184,7 +169,7 @@ async def evaluar_imagen(file: UploadFile = File(...)):
 
 @app.post('/similitud/')
 async def evaluar_silimitud(image:Image, image2:Image):
-    # Decodificar la imagen base64 Img1
+    #IMG1
     imagen_bytes = base64.b64decode(image.url)
     imagen_np = np.frombuffer(imagen_bytes, dtype=np.uint8)
     original = cv2.imdecode(imagen_np, cv2.IMREAD_COLOR)
@@ -194,42 +179,8 @@ async def evaluar_silimitud(image:Image, image2:Image):
     imagen_np = np.frombuffer(imagen_bytes, dtype=np.uint8)
     image = cv2.imdecode(imagen_np, cv2.IMREAD_COLOR)
 
-    # Check if 2 images are equal shape
-    if original.shape == image.shape:
-        difference = cv2.subtract(original, image)
-        b, g, r = cv2.split(difference)
-        #print(cv2.countNonZero(b))
-        if (cv2.countNonZero(b) == 0 and cv2.countNonZero(g) == 0 and cv2.countNonZero(r) == 0):
-            print('Las imagenes son completamente iguales')
-            return {"docs": [{"Mach": 100}]}
-
-    # Sift and Flann
-    shift = cv2.xfeatures2d.SIFT_create()
-    kp_1, desc_1 = shift.detectAndCompute(original, None)
-    kp_2, desc_2 = shift.detectAndCompute(image, None)
-
-    index_params = dict(algorithm=0, trees=5)
-    search_params = dict()
-
-    flann = cv2.FlannBasedMatcher(index_params, search_params)
-    matches = flann.knnMatch(desc_1, desc_2, k=2)
-
-    # 2) Check for similarities between the 2 images
-    good_points = []
-    for m, n in matches:
-        if m.distance < 0.6*n.distance:
-            good_points.append(m)
-            #print("Buenos puntos:", m)
-
-    number_keypoints = 0
-    if (len(kp_1) <= len(kp_2)):
-        number_keypoints = len(kp_1)
-    else:
-        number_keypoints = len(kp_2)
-
-    percentage_similarity = len(good_points) / number_keypoints * 100
-    mach = "Que tan bueno es el match", percentage_similarity, "%"
-    return {"docs": [{"Mach": percentage_similarity}]}
+    return evaluarSimilitud(original,image)
+    
 
 if __name__ == "__main__":
     import uvicorn
