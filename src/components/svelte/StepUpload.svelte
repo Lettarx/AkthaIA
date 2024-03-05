@@ -1,5 +1,5 @@
-<script>
-    import { setAppStatusError, setAppStatusLoading } from '../../store'
+<script lang="ts">
+    import { setAppStatusAccepted, setAppStatusError, setAppStatusLoading, setAppStatusRefused } from '../../store'
     import Dropzone from "svelte-file-dropzone";
   
     let files = {
@@ -9,33 +9,44 @@
   
     async function handleFilesSelect(e) {
       const { acceptedFiles, fileRejections } = e.detail;
-      console.log(acceptedFiles)
+      console.log(acceptedFiles[0])
       files.accepted = [...files.accepted, ...acceptedFiles];
       files.rejected = [...files.rejected, ...fileRejections];
 
       if (acceptedFiles.length > 0){
         const formData = new FormData()
-        formData.append('file',acceptedFiles[0])
+        const img = acceptedFiles[0] as File
+        formData.append('file',img)
+
         setAppStatusLoading()
-        // const res = await fetch('/api/upload',{
-        //     method: 'POST',
-        //     body: formData
-        // })
-        // if (!res.ok){
-        //      setAppStatusError()
-        //      return
-        // }
-        // const { id, url, pages } = await res.json()
-        // setAppStatusChatMode({ id, url, pages})
+        try {
+            const resImgDarks = await fetch('http://localhost:8000/pruebamodel/', {
+                method: "POST",
+                body: formData
+            });
+            
+            if (!resImgDarks.ok) {
+                console.error('Ocurrió un error durante la solicitud:', Error);
+                setAppStatusError()
+                throw new Error('La solicitud no fue exitosa');
+            }
+            
+            const { docs: resultados } = await resImgDarks.json();
+            setAppStatusAccepted()
+            console.log("resultado",resultados);
+        } catch {
+            console.error('Ocurrió un error durante la solicitud:', Error);
+            setAppStatusError()
+        }
+        
       }
     }
   </script>
   {#if files.accepted.length == 0}
     <Dropzone 
-        accept="application/pdf" 
         multiple={false}
         noClick={false}
-        on:drop={handleFilesSelect}>Arrastra y suelta aqui tu PDF
+        on:drop={handleFilesSelect}>Arrastra y suelta aqui tu imagen
     </Dropzone>
   {/if}
 
