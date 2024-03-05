@@ -9,7 +9,6 @@
   
     async function handleFilesSelect(e) {
       const { acceptedFiles, fileRejections } = e.detail;
-      console.log(acceptedFiles[0])
       files.accepted = [...files.accepted, ...acceptedFiles];
       files.rejected = [...files.rejected, ...fileRejections];
 
@@ -32,7 +31,7 @@
             }
             
             const { docs: resultados } = await resImgDarks.json();
-            setAppStatusAccepted()
+            setAppStatusAccepted(resultados)
             console.log("resultado",resultados);
         } catch {
             console.error('Ocurrió un error durante la solicitud:', Error);
