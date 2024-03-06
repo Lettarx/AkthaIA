@@ -18,12 +18,12 @@
 {:else if $appStatus == APP_STATUS.REFUSED}
     <StepRefused/>
 {:else if $appStatus == APP_STATUS.ERROR}
-    <Alert>
+    <Alert class="mb-10">
         <span class="font-medium">Algo malo a pasado!</span>
         Hay un error en la aplicación
     </Alert>
 {:else}
-    <Alert>
+    <Alert class="mb-10">
         <span class="font-medium">Acción no reconocida</span>
         Este estado de la aplicación no está conocido
     </Alert>

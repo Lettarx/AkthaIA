@@ -1,40 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import Form	from '../components/Form.astro'
 import App from '../components/svelte/App.svelte'
 import App2 from '../components/svelte/App2.svelte'
-import EPerson from '../components/EvaluarImagenes/EPerson.astro'
-import EImgLight from '../components/EvaluarImagenes/EImgLight.astro'
-import EImgBlur from '../components/EvaluarImagenes/EImgBlur.astro'
-import EImgSlipped from '../components/EvaluarImagenes/EImgSlipped.astro'
-import EImgWall from '../components/EvaluarImagenes/EImgWall.astro'
-import EImgDark from '../components/EvaluarImagenes/EImgDark.astro';
 ---
 
 <Layout title="AkthaIA">
-	<main class="py-8 px-4 mx-auto max-w-xl lg:py-16 lg:px-6">
-		<Form></Form>
-		<br>
-		<p>O ingrese el url de la imagen en Base64</p>
-		<br>
-		<input type="text" placeholder="URL en Base64">
-		<br><br>
+	<main class="py-8 px-4 mx-auto max-w-xl lg:py-15 lg:px-6">
 		<App client:idle />
-		<br>
-		<br>
-		<App2 client:idle />
-		<!-- <EImgDark url="https://th.bing.com/th/id/OIP.k4uGYhZPu6Q5EVRb0cFtJgHaFj?rs=1&pid=ImgDetMain"/>  -->
-		<!-- 
-		<br>
-		<EPerson/>
-		<br>
-		<EImgLight/>
-		<br>
-		<EImgBlur/>
-		<br>
-		<EImgSlipped/>
-		<br>
-		<EImgWall/> -->
+		<App2 client:idle />		
 	</main>
 </Layout>
 
