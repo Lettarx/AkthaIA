@@ -19,7 +19,7 @@
 
         setAppStatusLoading()
         try {
-            const resImgDarks = await fetch('http://localhost:8000/pruebamodel/', {
+            const resImgDarks = await fetch('http://localhost:8000/CriteriosEvaluacion/', {
                 method: "POST",
                 body: formData
             });
@@ -42,11 +42,13 @@
     }
   </script>
   {#if files.accepted.length == 0}
-    <Dropzone 
-        multiple={false}
-        noClick={false}
-        on:drop={handleFilesSelect}>Arrastra y suelta aqui tu imagen
-    </Dropzone>
+    <div class="mb-10 aspect-auto">
+      <Dropzone 
+          multiple={false}
+          noClick={false}
+          on:drop={handleFilesSelect}>Selecciona tu imágen o Arrastra y sueltala
+      </Dropzone>
+    </div>
   {/if}
 
   <ol>
