@@ -44,6 +44,8 @@
   {#if files.accepted.length == 0}
     <div class="mb-10 aspect-auto">
       <Dropzone 
+          disableDefaultStyles
+          containerClasses="flex flex-col items-center p-7 border-2 border-dashed border-gray-800 bg-slate-600 text-gray-400 outline-none transition duration-300 focus:border-blue-600"
           multiple={false}
           noClick={false}
           on:drop={handleFilesSelect}>Selecciona tu imágen o Arrastra y sueltala
