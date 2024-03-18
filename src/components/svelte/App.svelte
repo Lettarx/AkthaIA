@@ -5,6 +5,8 @@
     import StepUpload from './StepUpload.svelte';
     import StepAccepted from './StepAccepted.svelte';
     import StepRefused from './StepRefused.svelte';
+    import StepAnalyze from './StepAnalyze.svelte';
+    import StepBase64 from './StepBase64.svelte';
 </script>
 
 <!-- EL $ en la store es para observar el valor que tienen -->
@@ -17,6 +19,10 @@
     <StepAccepted/>
 {:else if $appStatus == APP_STATUS.REFUSED}
     <StepRefused/>
+{:else if $appStatus == APP_STATUS.ANALYZE}
+    <StepAnalyze/>
+{:else if $appStatus == APP_STATUS.BASE64}
+    <StepBase64/>
 {:else if $appStatus == APP_STATUS.ERROR}
     <Alert class="mb-10">
         <span class="font-medium">Algo malo a pasado!</span>
