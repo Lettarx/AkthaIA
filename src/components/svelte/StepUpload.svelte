@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { setAppStatusAccepted, setAppStatusError, setAppStatusLoading, setAppStatusRefused } from '../../store'
+    import { setAppStatusAccepted, setAppStatusAnalyze , setAppStatusBase64, setAppStatusError, setAppStatusLoading, setAppStatusRefused } from '../../store'
     import Dropzone from "svelte-file-dropzone";
   
     let files = {
@@ -19,7 +19,7 @@
 
         setAppStatusLoading()
         try {
-            const resImgDarks = await fetch('http://localhost:8000/CriteriosEvaluacion/', {
+            const resImgDarks = await fetch('http://localhost:8001/CriteriosEvaluacion/', {
                 method: "POST",
                 body: formData
             });
@@ -31,7 +31,7 @@
             }
             
             const { docs: resultados } = await resImgDarks.json();
-            setAppStatusAccepted(resultados)
+            setAppStatusAnalyze(resultados)
             console.log("resultado",resultados);
         } catch {
             console.error('Ocurrió un error durante la solicitud:', Error);
@@ -42,6 +42,10 @@
     }
   </script>
   {#if files.accepted.length == 0}
+    <button 
+      class="inline-block px-4 py-2 mb-3 text-slate-200 bg-slate-600 border border-gray-800 rounded hover:bg-blue-600 hover:text-white transition duration-300"
+      on:click={setAppStatusBase64}>
+      Usar imágen con Base64</button>
     <div class="mb-10 aspect-auto">
       <Dropzone 
           disableDefaultStyles
