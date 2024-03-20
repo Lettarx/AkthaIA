@@ -45,7 +45,7 @@
     <button 
       class="inline-block px-4 py-2 mb-3 text-slate-200 bg-slate-600 border border-gray-800 rounded hover:bg-blue-600 hover:text-white transition duration-300"
       on:click={setAppStatus2Base64}>
-      Usar imágen con Base64</button>
+      Usar imagen con Base64</button>
     <div class="mb-10 aspect-auto">
       <Dropzone 
           disableDefaultStyles
