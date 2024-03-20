@@ -51,7 +51,7 @@ const ejemploresults = {
 
 export const resultsEv = writable(ejemploresults)
 
-export const appStatus = writable(APP_STATUS.BASE64)
+export const appStatus = writable(APP_STATUS.INIT)
 
 export const setAppStatusLoading = () => {
     appStatus.set(APP_STATUS.LOADING)
@@ -89,7 +89,7 @@ export const APP_STATUS2={
 
 export const resultsEv2 = writable(ejemploresults)
 
-export const appStatus2 = writable(APP_STATUS.INIT)
+export const appStatus2 = writable(APP_STATUS2.INIT)
 
 export const setAppStatus2Loading = () => {
     appStatus2.set(APP_STATUS2.LOADING)
@@ -111,7 +111,5 @@ export const setAppStatus2Analyze = (results) => {
     resultsEv2.set(results)
 }
 export const setAppStatus2Base64 = () => {
-    appStatus.set(APP_STATUS2.BASE64)
+    appStatus2.set(APP_STATUS2.BASE64)
 }
-
-

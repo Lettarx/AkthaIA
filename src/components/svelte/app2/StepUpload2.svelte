@@ -19,26 +19,25 @@
         console.log(img)
 
         setAppStatus2Loading()
-        // try {
-        //     const resImgDarks = await fetch('http://localhost:8001/CriteriosEvaluacion/', {
-        //         method: "POST",
-        //         body: formData
-        //     });
+         try {
+             const resImgDarks = await fetch('http://localhost:8001/CriteriosEvaluacion/', {
+                 method: "POST",
+                 body: formData
+             });
             
-        //     if (!resImgDarks.ok) {
-        //         console.error('Ocurrió un error durante la solicitud:', Error);
-        //         setAppStatus2Error()
-        //         throw new Error('La solicitud no fue exitosa');
-        //     }
-            
-        //     const { docs: resultados } = await resImgDarks.json();
-        //     setAppStatus2Analyze(resultados)
-        //     console.log("resultado",resultados);
-        // } catch {
-        //     console.error('Ocurrió un error durante la solicitud:', Error);
-        //     setAppStatus2Error()
-        // }
-        
+             if (!resImgDarks.ok) {
+                 console.error('Ocurrió un error durante la solicitud:', Error);
+                 setAppStatus2Error()
+                 throw new Error('La solicitud no fue exitosa');
+             }
+           
+             const { docs: resultados } = await resImgDarks.json();
+             setAppStatus2Analyze(resultados)
+             console.log("resultado",resultados);
+         } catch {
+             console.error('Ocurrió un error durante la solicitud:', Error);
+             setAppStatus2Error()
+         }
       }
     }
   </script>
