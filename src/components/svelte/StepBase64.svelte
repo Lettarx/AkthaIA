@@ -13,7 +13,7 @@
             };
             setAppStatusLoading()
 
-            const VImgBase64 = await fetch('http://localhost:8001/EvBase68/borrosa/', {
+            const VImgBase64 = await fetch('http://10.58.49.37:8001/CriteriosEvaluacionBase64/', {
                 method: "POST",
                 headers: {
                 'Content-Type': 'application/json' 

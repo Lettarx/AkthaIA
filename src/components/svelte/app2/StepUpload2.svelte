@@ -20,7 +20,7 @@
 
         setAppStatus2Loading()
          try {
-             const resImgDarks = await fetch('http://localhost:8001/CriteriosEvaluacion/', {
+             const resImgDarks = await fetch('http://10.58.49.37:8001/CriteriosEvaluacion/', {
                  method: "POST",
                  body: formData
              });
