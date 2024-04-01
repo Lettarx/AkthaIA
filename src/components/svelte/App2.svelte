@@ -1,6 +1,6 @@
 <script>
-    import { Alert, P } from 'flowbite-svelte';
-    import { APP_STATUS2, appStatus2 } from '../../store'
+    import { Alert } from 'flowbite-svelte';
+    import { APP_STATUS2, appStatus2, StatusImg1, StatusImg2 } from '../../store'
     import StepLoading2 from './app2/StepLoading2.svelte';
     import StepUpload2 from './app2/StepUpload2.svelte';
     import StepAccepted2 from './app2/StepAccepted2.svelte';
@@ -23,6 +23,11 @@
     <StepAnalyze2/>
 {:else if $appStatus2 == APP_STATUS2.BASE64}
     <StepBase642/>
+{:else if $StatusImg1 == true && $StatusImg2 == true}
+    <Alert class="mb-10">
+        <span class="font-medium">Empezar a evaluar similitud</span>
+        
+    </Alert>
 {:else if $appStatus2 == APP_STATUS2.ERROR}
     <Alert class="mb-10">
         <span class="font-medium">Algo malo a pasado!</span>

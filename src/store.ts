@@ -8,6 +8,8 @@ export const APP_STATUS={
     ACCEPTED:3,
     REFUSED:4,
     BASE64:5,
+    ACCEPTEDIMG1:false,
+    ACCEPTEDIMG2:false,
     ERROR:-1
 }
 
@@ -52,6 +54,10 @@ const ejemploresults = {
 export const resultsEv = writable(ejemploresults)
 
 export const appStatus = writable(APP_STATUS.INIT)
+export const StatusImg1 = writable(false)
+export const StatusImg2 = writable(false)
+export const img1 = writable()
+export const img2 = writable()
 
 export const setAppStatusLoading = () => {
     appStatus.set(APP_STATUS.LOADING)
@@ -73,8 +79,20 @@ export const setAppStatusRefused = () => {
 export const setAppStatusError = () => {
     appStatus.set(APP_STATUS.ERROR)
 }
+export const setAppStatusImg1 = () => {
+    StatusImg1.set(true)
+}
+export const setAppStatusImg2 = () => {
+    StatusImg2.set(true)
+}
 export const setAppStatusBase64 = () => {
     appStatus.set(APP_STATUS.BASE64)
+}
+export const setImg1 = (imagen1:File) => {
+    img1.set(imagen1)
+}
+export const setImg2 = (imagen2:File) => {
+    img2.set(imagen2)
 }
 //Para APP2
 export const APP_STATUS2={
