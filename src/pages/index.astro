@@ -2,12 +2,14 @@
 import Layout from '../layouts/Layout.astro'
 import App from '../components/svelte/App.svelte'
 import App2 from '../components/svelte/App2.svelte'
+import Similitud from '../components/svelte/Similitud.svelte'
 ---
 
 <Layout title="AkthaIA">
 	<main class="pb-8 px-4 mx-auto max-w-xl lg:py-15 lg:px-6">
 		<App client:idle />
-		<App2 client:idle />		
+		<App2 client:idle />	
+		<Similitud client:idle />	
 	</main>
 </Layout>
 
