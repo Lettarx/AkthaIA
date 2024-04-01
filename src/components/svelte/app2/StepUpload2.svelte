@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { setAppStatus2Accepted, setAppStatus2Analyze , setAppStatus2Base64, setAppStatus2Error, setAppStatus2Loading, setAppStatus2Refused } from '../../../store'
+    import { setAppStatus2Analyze , setAppStatus2Base64, setAppStatus2Error, setAppStatus2Loading, setImg2 } from '../../../store'
     import Dropzone from "svelte-file-dropzone";
   
     let files = {
@@ -16,11 +16,11 @@
         const formData = new FormData()
         const img = acceptedFiles[0] as File
         formData.append('file',img)
-        console.log(img)
-
+        
+        setImg2(img)
         setAppStatus2Loading()
          try {
-             const resImgDarks = await fetch('http://10.58.49.37:8001/CriteriosEvaluacion/', {
+             const resImgDarks = await fetch('http://localhost:8001/CriteriosEvaluacion/', {
                  method: "POST",
                  body: formData
              });
