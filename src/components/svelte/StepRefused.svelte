@@ -23,6 +23,7 @@
                                 <p>No esta desenfocada</p> 
                             {:else}
                             <p>Hay una desenfocada en un {resultado.confidence}%</p>
+                            {:break}
                             {/if}
                     {/if}
                 {/if}
@@ -44,6 +45,7 @@
                             <p>No esta movida</p> 
                             {:else}
                             <p>Esta movida en un {resultado.confidence}%</p>
+                            {:break}
                             {/if}
                     {/if}
                 {/if}
@@ -61,6 +63,7 @@
                     
                         {#if ( resultado.label === "FullDark")||(resultado.label ==="LightDark")} 
                             <p>Esta oscura en un {resultado.confidence}%</p>
+                            {:break}
                             
                         {:else}
                         <p>No esta oscura</p> 
@@ -79,6 +82,7 @@
                 {#if resultado.confidence === Math.max(...iluminada.map(p => p.confidence))}
                     {#if ( resultado.label != "normal")&& (resultado.confidence >= 60)} 
                     <p>Esta iluminada en un {resultado.confidence}%</p>
+                    {:break}
                     
                     {:else}
                      <p>No esta iluminada</p> 
@@ -103,6 +107,7 @@
                                 <p>No tiene pared o esquina</p>
                             {:else}
                                 <p>Hay una pared en un {resultado.confidence}%</p> 
+                                {:break}
                             {/if}
                     {/if}
                 {/if}
@@ -124,6 +129,7 @@
                         <p>No tiene personas</p> 
                         {:else}
                         <p>Hay una persona en un {resultado.confidence}%</p>
+                        {:break}
                         
                         {/if}
                     {/if}
